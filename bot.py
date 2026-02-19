@@ -60,3 +60,20 @@ class Bot(Client):
         msg = f"@{self.username} stopped. Bye."
         await super().stop()
         logging.info(msg)
+        from flask import Flask
+import threading
+import os
+
+app = Flask(__name__)
+
+@app.route('/')
+def hello():
+    return "Bot is Running!"
+
+def run():
+    # Render hamesha 'PORT' environment variable deta hai
+    port = int(os.environ.get("PORT", 8080))
+    app.run(host='0.0.0.0', port=port)
+
+# Isse bot ke saath parallel mein chalayein
+threading.Thread(target=run).start()
